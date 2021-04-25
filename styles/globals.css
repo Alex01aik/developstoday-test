@@ -19,6 +19,7 @@ a {
 main{
   width: 80vw;
   margin: auto;
+  padding-bottom: 2rem;
 }
 
 *:focus{

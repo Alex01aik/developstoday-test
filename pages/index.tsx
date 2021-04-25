@@ -22,7 +22,7 @@ const LatestPosts = ({
     useEffect((): any => {
       dispatch(setPosts(postsProps))
     }, [])
-
+    
     return (
       <>
         <h1>Latest Posts</h1>
@@ -45,10 +45,12 @@ const LatestPosts = ({
             </li>
           ))}
         </ul>
-        <button
-          onClick={() => dispatch(getEveryPost())}>
-          GET ALL POSTS
-        </button>
+        {( posts.length > 5 )
+          ? <></>
+          : <button
+              onClick={() => dispatch(getEveryPost())}>
+              GET ALL POSTS
+            </button>}
       </>
     )
 }
