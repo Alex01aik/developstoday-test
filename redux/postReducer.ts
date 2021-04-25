@@ -39,11 +39,8 @@ export const getCurrentPost = (postId) => {
     )
   }
 }
-export const postNewPost = (postData) => {
-  return () => {
-    postPost(postData)
-  }
-}
+export const postNewPost = (postData) =>
+  () => postPost(postData)
 export const postNewComment = (commentData) => {
   return (dispatch) => {
     postComment(commentData).then(() => {

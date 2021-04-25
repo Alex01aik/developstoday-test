@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
-import { getLastPosts } from './api/postsAPI'
+import { getAllPosts, getLastPosts } from './api/postsAPI'
 import { Post } from '../interfaces/posts'
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { RootState } from '../redux/store'
-import { getEveryPost, setPosts } from '../redux/postReducer'
+// import { useAppDispatch, useAppSelector } from '../redux/hooks'
+// import { RootState } from '../redux/store'
+// import { getEveryPost, setPosts } from '../redux/postReducer'
 import styles from '../styles/Posts.module.css'
 
 const LatestPosts = ({
@@ -14,13 +14,16 @@ const LatestPosts = ({
     postsProps: Array<Post>
   }) => {
     
-    const dispatch = useAppDispatch()
-    const posts = useAppSelector(
-      (state: RootState) => 
-        state.post.posts)
+    // const dispatch = useAppDispatch()
+    // const posts = useAppSelector(
+    //   (state: RootState) => 
+    //     state.post.posts)
 
+    const [posts, setPosts] = useState([])
     useEffect((): any => {
-      dispatch(setPosts(postsProps))
+      getAllPosts().then(res => setPosts(res.reverse()))
+      // dispatch(setPosts(postsProps))
+
     }, [])
     
     return (
@@ -45,20 +48,20 @@ const LatestPosts = ({
             </li>
           ))}
         </ul>
-        {( posts.length > 5 )
+        {/* {( posts.length > 5 )
           ? <></>
           : <button
               onClick={() => dispatch(getEveryPost())}>
               GET ALL POSTS
-            </button>}
+            </button>} */}
       </>
     )
 }
 
 export const getStaticProps: GetStaticProps =
   async () => {
-    const postsProps = await getLastPosts()
-    return { props: { postsProps } }
+    const posts = await getAllPosts()
+    return { props: { postsProps: posts.reverse() } }
   }
 
 export default LatestPosts
