@@ -1,0 +1,18 @@
+.posts{
+  padding: 0;
+}
+
+.post{
+  list-style-type: none;
+  margin-bottom: 4rem;
+	border-left: 2px solid black;
+	padding-left: 0.5rem;
+}
+
+.postBody{
+  overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+}

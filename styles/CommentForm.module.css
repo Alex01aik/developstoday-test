@@ -1,0 +1,8 @@
+.commentForm{
+  display: flex;
+  min-height: 100px;
+}
+
+.commentBody{
+  width: 100%;
+}

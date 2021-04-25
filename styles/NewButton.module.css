@@ -1,0 +1,11 @@
+.newButton{
+  font-size: large;
+  width: 150px;
+  padding: 1rem;
+  background: linear-gradient(to right, rgb(0, 125, 105), white 100%);
+  color: white;
+}
+
+.newButton:hover{
+  opacity: 0.7;
+}

@@ -1,0 +1,22 @@
+.postTitle{
+  text-align: center;
+}
+.postBody{
+  text-align: justify;
+}
+
+.comment{
+  margin-left: 2rem;
+  margin-top: 2rem;
+  display: flex;
+}
+
+.commentator{
+  width: 50px;
+}
+
+.commentBody{
+  width: 100%;
+  margin-left: 1rem;
+  border-bottom: 1px solid grey;
+}
