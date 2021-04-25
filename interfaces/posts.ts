@@ -6,6 +6,7 @@ export interface Post{
 }
 
 export interface Comment{
+  id: number
   postId: number,
   body: string
 }

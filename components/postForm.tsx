@@ -26,7 +26,7 @@ let PostForm = (props) => {
         type="text" />
       <label
         htmlFor="body">
-        Discription
+        Description
       </label>
       <Field
         name="body"
