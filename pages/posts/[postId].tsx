@@ -1,18 +1,27 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { getPost, getAllPostIds } from './../api/postsAPI'
 import { Post } from '../../interfaces/posts'
 import CommentForm from '../../components/commentForm'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { getCurrentPost } from '../../redux/postReducer'
-import store, { RootState } from '../../redux/store'
+import { RootState } from '../../redux/store'
 import styles from '../../styles/Post.module.css'
 
-const PostPage = () => {
-  
-    const currentPost: Post = useAppSelector(
+const PostPage = ({
+    postProp
+  }:{
+    postProp: Post
+  }) => {
+    
+    const dispatch = useAppDispatch()
+    const currentPost = useAppSelector(
       (state: RootState) => 
         state.post.currentPost)
+
+    useEffect((): any => {
+      dispatch(getCurrentPost(postProp.id))
+    }, [])
 
     return (
       <div>
@@ -61,9 +70,8 @@ export const getStaticPaths: GetStaticPaths  =
 
 export const getStaticProps: GetStaticProps =
   async ({ params }) => {
-    const post = await getPost(params.postId)
-    store.dispatch(getCurrentPost(post.id))
-    return { props: {} }
+    const postProp = await getPost(params.postId)
+    return { props: { postProp } }
   }
 
 export default PostPage

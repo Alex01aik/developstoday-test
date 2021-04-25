@@ -4,26 +4,30 @@ import Link from 'next/link'
 import { getLastPosts } from './api/postsAPI'
 import { Post } from '../interfaces/posts'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import store, { RootState } from '../redux/store'
+import { RootState } from '../redux/store'
 import { getEveryPost, setPosts } from '../redux/postReducer'
 import styles from '../styles/Posts.module.css'
 
 const LatestPosts = ({
-  posts
+  postsProps
   }: {
-    posts: Array<Post>
+    postsProps: Array<Post>
   }) => {
     
     const dispatch = useAppDispatch()
-    const storeposts = useAppSelector(
+    const posts = useAppSelector(
       (state: RootState) => 
         state.post.posts)
-    const localposts = (storeposts.length) ? storeposts : posts
+
+    useEffect((): any => {
+      dispatch(setPosts(postsProps))
+    }, [])
+    
     return (
       <>
         <h1>Latest Posts</h1>
         <ul className={styles.posts}>
-          {localposts.map(item => (
+          {posts.map(item => (
             <li
               key={item.id}
               className={styles.post}>
@@ -41,7 +45,7 @@ const LatestPosts = ({
             </li>
           ))}
         </ul>
-        {( storeposts.length > 5 )
+        {( posts.length > 5 )
           ? <></>
           : <button
               onClick={() => dispatch(getEveryPost())}>
@@ -54,9 +58,7 @@ const LatestPosts = ({
 export const getStaticProps: GetStaticProps =
   async () => {
     const postsProps = await getLastPosts()
-    store.dispatch(setPosts(postsProps))
-    const posts = store.getState().post.posts
-    return { props: { posts } }
+    return { props: { postsProps } }
   }
 
 export default LatestPosts
